@@ -1,12 +1,19 @@
-name := "sims"
+lazy val root =
+  (project in file("."))
+    .aggregate(simsJS, simsJVM)
 
-version := "1.2"
+lazy val sims =
+  (crossProject(JSPlatform, JVMPlatform) in file("sims"))
+    .settings(
+      name := "sims",
+      organization := "com.odersky.jakob",
+      version := "1.2.1",
+      scalaVersion := "3.1.1",
+      scalacOptions ++= Seq("-deprecation", "-feature")
+    )
+    .jsSettings(
+      Test / scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule))
+    )
 
-scalaVersion := "2.11.7"
-
-scalacOptions ++= Seq("-deprecation", "-feature")
-
-libraryDependencies ++= Seq(
-  "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2",
-  "com.typesafe.akka" %% "akka-actor" % "2.3.11"
-)
+lazy val simsJS = sims.js
+lazy val simsJVM = sims.jvm
