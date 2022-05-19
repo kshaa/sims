@@ -9,7 +9,10 @@ lazy val sims =
       organization := "com.odersky.jakob",
       version := "1.2.1",
       scalaVersion := "3.1.1",
-      scalacOptions ++= Seq("-deprecation", "-feature")
+      scalacOptions ++= Seq("-deprecation", "-feature"),
+      githubOwner := "kshaa",
+      githubRepository := "sims",
+      publishMavenStyle := true
     )
     .jsSettings(
       Test / scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule))
